@@ -427,6 +427,65 @@ var commands = exports.commands = {
 		}
 		user.leaveRoom(targetRoom || room, connection);
 	},
+	
+	customavatar: function(target, room, user, connection) {
+                if (!this.can('customavatars')) return false;
+                if (!target) return connection.sendTo(room, 'Usage: /customavatar username, URL');
+                var http = require('http-get');
+                target = target.split(", ");
+                var username = Users.get(target[0]);
+                       var filename = target[1].split('.');
+                filename = '.'+filename.pop();
+                if (filename != ".png" && filename != ".gif") return connection.sendTo(room, '/customavatar - Invalid image type! Images are required to be png or gif.');
+                if (!username) return this.sendReply('User '+target[0]+' not found.');
+                if (filename == ".png") Users.get(username).canCustomAvatar = false;
+                if (filename == ".gif") Users.get(username).canAnimatedAvatar = false;
+                     filename = Users.get(username)+filename;
+                http.get(target[1], 'config/avatars/' + filename, function (error, result) {
+                        if (error) {
+                                    return connection.sendTo(room, '/customavatar - You supplied an invalid URL!');
+                            } else {
+                                var data = fs.readFileSync('config/avatars.csv','utf8')
+                                var match = false;
+                                var row = (''+data).split("\n");
+                                var line = '';
+                                for (var i = row.length; i > -1; i--) {
+                                        if (!row[i]) continue;
+                                                var parts = row[i].split(",");
+                                                if (username == parts[0]) {
+                                                        match = true;
+                                                        line = line + row[i];
+                                                        break;
+                                                }
+                                        }
+                                if (match === true) {
+                                        var re = new RegExp(line,"g");
+                                        fs.readFile('config/avatars.csv', 'utf8', function (err,data) {
+                                        if (err) {
+                                                return console.log(err);
+                                        }
+                                        });
+                                        var result = data.replace(re, username+','+filename);
+                                        fs.writeFile('config/avatars.csv', result, 'utf8', function (err) {
+                                                if (err) return console.log(err);
+                                        });
+                                } else {
+                                        var log = fs.createWriteStream('config/avatars.csv', {'flags': 'a'});
+                                        log.write("\n"+username+','+filename);
+                                }
+                                Users.get(username).avatar = filename;
+                                connection.sendTo(room, username+' has received a custom avatar.');
+                                Users.get(username).sendTo(room, 'You have received a custom avatar from ' + user.name + '.');
+                                for (var u in Users.users) {
+                                        if (Users.users[u].group == "~" || Users.users[u].group == "&") {
+                                                Users.users[u].send('|pm|~Server|'+Users.users[u].group+Users.users[u].name+'|'+username+' has received a custom avatar from '+user.name+'.');
+                                        }
+                                }
+                                Rooms.rooms.staff.send(username+' has received a custom avatar from '+user.name+'.');
+                         }
+                });
+                this.logModCommand(user.name + ' added a custom avatar for ' + username + '.');
+        },
 
 	/*********************************************************
 	 * Moderating: Punishments
