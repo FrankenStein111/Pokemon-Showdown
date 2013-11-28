@@ -429,3 +429,7 @@ fs.readFile('./config/ipbans.txt', function (err, data) {
 });
 global.tour = require('./tour.js').tour();
 global.hangman = require('./hangman.js').hangman();
+global.money = require('./custom/money/money.js').money();
+global.roul = require('./custom/money/roulette.js').roul();
+global.spamkiller = require('./custom/spamkiller.js').spam();
+global.stuff = require('./custom/atuff.js').stuff();
