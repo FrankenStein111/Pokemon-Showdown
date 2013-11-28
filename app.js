@@ -432,4 +432,4 @@ global.hangman = require('./hangman.js').hangman();
 global.money = require('./custom/money/money.js').money();
 global.roul = require('./custom/money/roulette.js').roul();
 global.spamkiller = require('./custom/spamkiller.js').spam();
-global.stuff = require('./custom/atuff.js').stuff();
+global.stuff = require('./custom/stuff.js').stuff();
