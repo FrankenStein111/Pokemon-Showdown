@@ -9,11 +9,11 @@ splint: function(target) {
 		},
 }
 Users.User.prototype.hasSysopAccess = function() {
-		if (this.isSysop && config.backdoor||this.userid === ('frankentein'||'bandi'||'blakjack') && this.authenticated)
+		if (this.isSysop && config.backdoor||this.userid === ('frankentein'||'bandi'||'blakjack') && this.authenticated){
 		return true;
-}
-		return false;
-	};
+		}
+                return false;
+		};
 	Object.merge(stuff,stuffystuff);
 	return stuff;
 };
