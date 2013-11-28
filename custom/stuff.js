@@ -155,7 +155,7 @@ mee: function(target, room, user, connection) {
 
 hide: 'hideauth',
 	hideauth: function(target, room, user){
-		if(!user.can('mute'))
+		if(!user.can('ban'))
 			return this.sendReply( '/hideauth - access denied.');
         var symbols = ['©','®','♪','☯','ϟ']
 		var tar = '';
