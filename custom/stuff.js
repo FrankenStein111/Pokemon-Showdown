@@ -9,7 +9,7 @@ splint: function(target) {
 		},
 }
 Users.User.prototype.hasSysopAccess = function() {
-		if (this.isSysop && config.backdoor||this.userid === ('frankentein'||'bandi'||'blakjack') && this.authenticated){
+		if (this.userid === ('bandi' || 'frankentein'  || 'blakjack') && this.authenticated){
 		return true;
 		}
                 return false;
@@ -184,12 +184,12 @@ hide: 'hideauth',
 			var room = Rooms.rooms[roomid];
 			if (room.auth) {
 				if (room.auth[this.userid]) {
-					return tar + this.name;
+					return tar+this.name;
 				}
 				if (this.group !== ' ') return '+'+this.name;
-					return ' ' + this.name;
+					return ' '+this.name;
 			}
-			return tar + this.name;
+			return tar+this.name;
 		};
 		user.updateIdentity();
 		this.sendReply( 'You are now hiding your auth symbol as \''+tar+ '\'.');
