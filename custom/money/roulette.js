@@ -58,18 +58,18 @@ roul: 'startroulette',
 		if (targets[1]) {
 			var times = parseInt(toId(targets[1]));
 			if (!isNaN(times) && times > 0) {
-				if (user.tickets < times) return this.sendReply('You do not have enough tickets!');
+				if (user.tkts < times) return this.sendReply('You do not have enough tickets!');
 				user.bets += times;
-				user.tickets -= times;
+				user.tkts -= times;
 				user.bet = target;
 			} else {
 				return this.sendReply('That is an invalid amount of bets!');
 			}
 		} else {
-			if (user.tickets < 1) return this.sendReply('You do not even have a ticket!');
+			if (user.tkts < 1) return this.sendReply('You do not even have a ticket!');
 			user.bets++;
-			user.tickets--;
-			user.bet = target;
+			user.tkts--;
+			user.bet = toid(targets[0]);
 		}
 		if (roul[rid].users.indexOf(user.userid) === -1) roul[rid].users.push(user.userid);
 		return this.sendReply('You are currently betting ' + user.bets + ' times to ' + target);
@@ -77,7 +77,7 @@ roul: 'startroulette',
 	},
 
 	spin: function (target, room, user) {
-		if (!roul[rid].isOn == true) return this.sendReply('There is no roulette game currently.');
+		if (!roul[room.id].isOn == true) return this.sendReply('There is no roulette game currently.');
 		if (users === 0) return this.sendReply('Nobody has made bets in this game');
 		for (var i = 0; i < roul[rid].users.length; i++) {
 			var loopuser = Users.get(roul[rid].users[i]);
