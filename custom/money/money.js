@@ -16,7 +16,7 @@ exports.money = function(m) {
   if (typeof m != "undefined") var money = m; else var money = new Object();
    var usermoney = {};
    var usertkts = {};
-
+var userwealth = usermoney;
 var Moneystuff = {
     importUsertkts: function () {
 	for (var i in usertkts) delete usertkts[i];
@@ -352,7 +352,7 @@ givemoney: function (target, room, user) {
 	backpack: function (target, room, user) {
 	    money.read(user)
 		if(money.started == false){ 
-		this.sendReply('Money isn\'t on yet, we ae fixing bugs'); 
+		this.sendReply('Money isn\'t on yet, we are fixing bugs'); 
 		return false
 		}
 		else {
@@ -362,11 +362,11 @@ givemoney: function (target, room, user) {
 		var targetUser = this.targetUser;
 		if (targetUser) {
 			this.sendReply(targetUser.name + ' backpack contains:');
-			this.sendReply('- Battle Points: ' + targetUser.money);
+			this.sendReply('- Oblivion Dollars: ' + targetUser.money);
 			this.sendReply('- Tickets: ' + targetUser.tkts);
 		} else {
 			this.sendReply('Your backpack contains:');
-			this.sendReply('- Battle Points: ' + user.money);
+			this.sendReply('- Oblivion Dollars: ' + user.money);
 			this.sendReply('- Tickets: ' + user.tkts);
 		}
 		}
@@ -397,9 +397,9 @@ givemoney: function (target, room, user) {
 			'/checkallmoney <em>Checks every users money</em><br />' +
 			'<h3>FAQ</h3><br /><hr />' +
 			'How do I get Battle Points?: Win a Tournament or a Roulette.<br />' +
-			'How do I get tickets? Buy them. Check the shop with /shop<br />' +
-			'What is a Roulette? A virtual machine that spins and if it lands on the color you bet you win Battle Points.<br />' +
-			'How do i check my Battle Points?: /bp or /wallet or /bag');
+			'How do I get tickets?: Buy them. Check the shop with /shop<br />' +
+			'What is a Roulette?: A virtual machine that spins and if it lands on the color you bet you win Battle Points.<br />' +
+			'How do i check my Oblivion Dollars?: /bp or /bag');
 	},
 	
 
